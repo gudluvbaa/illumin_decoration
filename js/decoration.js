@@ -1,11 +1,31 @@
 var originname = "http://218.161.115.218:8080/HouseManager";
+var imagepath = "http://218.161.115.218:80";
 
 $(function() {
-	var userurl = "http://testurl.com?g=ZjIwNmQ2MjAtZGFmZi00YWFmLTg4NTktNDhiNjY4ZDhiOTNh";
+	var userurl = "http://testurl.com?g=NGY5NTM1ODMtOTk0ZC00Mjk0LThjMjEtMWM3ZGI5NzA0YTQz";
 	var userEncode = userurl.split("?g=");
 	var encodeVal = userEncode[1];
 	console.log("encode: " + encodeVal);
 	decode64(encodeVal);
+	
+	
+	$.ajax({
+        url: originname + "/files/building/1",
+        type: 'GET',
+        success: function(data)
+        {
+        	for(var i = 0 ; i < data.length ; i++){
+				console.log(data);
+				$(".applied-deco-section").append("<div class='deco-apply-file-list col-md-12'><div class='document-title col-md-6'>"+ data[i].fileName +"</div>" +
+				"<div class='document-download col-md-1'><a href='" + imagepath + data[i].url +"' download><img src='./img/download.png' alt='download' height='50'></a></div>"+
+				"<div class='document-upload col-md-1'><input type='file' name='file_upload' id='file_upload'></input></div></div>");
+        	};
+        },
+        error: function(error)
+        {
+			console.log("error!!!!!!");
+        }
+   });
 });
 var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" + "=";
 
@@ -47,6 +67,12 @@ function decode64(input) {
   }
   
 function getUser(userToken) {
+	$("#decoAppliedDesignerName").html("");
+	$("#decoAppliedDesignerMail").html("");
+	$("#decoAppliedDesignerPhone").html("");
+	$("#decoAppliedOverSeerName").html("");
+	$("#decoAppliedOverSeerPhone").html("");
+	$("#decoAppliedOverSeerMail").html("");
 	$.ajaxSetup({
 		beforeSend: function (request){
 	        request.setRequestHeader("Authorization",  "bearer " + userToken);
@@ -56,16 +82,28 @@ function getUser(userToken) {
 	    }
 	});
 	$.ajax({
-            url: originname + "/decoration/user",
-            type: 'GET',
-            success: function(data)
-            {
-				console.log(data);
-				console.log("success!!!!!!");
-            },
-            error: function(error)
-            {
-				console.log("error!!!!!!");
-            }
-        })
+        url: originname + "/decoration/user",
+        type: 'GET',
+        success: function(data)
+        {
+			console.log(data);
+			console.log("success!!!!!!");
+			//$("#decoAppliedId").append(data.designer);
+			//$("#decoAppliedName").html(data.floor + " - " + data.number);
+			$("#decoAppliedDesignerName").html(data.designer);
+			$("#decoAppliedDesignerMail").html(data.designerPhone);
+			$("#decoAppliedDesignerPhone").html(data.designerMail);
+			$("#decoAppliedOverSeerName").html(data.overseer);
+			$("#decoAppliedOverSeerPhone").html(data.overseerPhone);
+			$("#decoAppliedOverSeerMail").html(data.overseerMail);
+        },
+        error: function(error)
+        {
+			console.log("error!!!!!!");
+        }
+   });
+}
+
+function fileupload() {
+	alert("file upload");
 }
