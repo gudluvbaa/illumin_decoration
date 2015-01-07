@@ -1,0 +1,8 @@
+.activity-user-list-table.notarrive, .activity-user-list-table.arrive {
+	height: 780px;
+	overflow-y: auto;
+}
+.input-search{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

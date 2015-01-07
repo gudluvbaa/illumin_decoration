@@ -1,0 +1,120 @@
+.modal-lg {
+	width: 80%;
+	margin-left: 12%;
+	margin-top: 4%;
+}
+.modal-content {
+	height: 85%;
+	/*background-color: #222a33;
+	color: #D5D5D5;*/
+	background-color: #b3b3b3;
+	color: #000000;
+}
+.modal-content ul.nav > li > a {
+	/*color: #D5D5D5;*/
+	color: #000000;
+}
+.modal-content .nav-tabs > li.active > a, .modal-content .nav-tabs > li.active > a:hover, .modal-content .nav-tabs > li.active > a:focus {
+	background-color: transparent;
+	/*color: #D5D5D5;*/
+	color: #000000;
+}
+.modal-content .nav > li > a:hover, .modal-content .nav > li > a:focus {
+    background-color: transparent;
+}
+.modal-content table {
+	/*color: #D5D5D5;*/
+	color: #000000;
+}
+.modal-content table thead th,  .modal-content table tbody td {
+	font-weight: normal;
+}
+.modal-content label {
+	font-weight: normal;
+}
+.modal-content .table-hover-block > tbody > tr:hover{
+	background-color: rgba(27, 37, 48, 0.9);
+}
+.popup-layout {
+	margin: 1%;
+}
+.popup-layout.col-lg-12 {
+	width: 98%
+}
+/***************popup in grey****************/
+.modal-content .nav-tabs {
+    border-bottom: 1px solid #000;
+}
+.modal-content .nav-tabs > li.active > a, .modal-content .nav-tabs > li.active > a:hover, .modal-content .nav-tabs > li.active > a:focus {
+	border-color: #000 #000 transparent
+}
+.modal-content .nav-tabs > li > a:hover {
+    border-color: #000 #000 #000;
+}
+.btn-grey {
+	background-color: #999999;
+    border-color: #999999;
+    color: #fff;
+}
+/***************canlendar colour*************/
+#calendar .fc-widget-header {
+	background-color: #586f8d;
+	color: #FFFFFF;
+}
+#calendar .fc-widget-content {
+	background-color: #e6e6e6;
+	color: #808080;
+}
+#calendar .fc-state-down, #calendar .fc-state-active {
+    background-color: #586f8d;
+    background-image: none;
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);*/
+}
+#calendar .fc-state-default{
+	text-shadow: none;
+	background-image: none;
+	box-shadow: none;
+	background-color: #7b8291;
+	color: #FFFFFF;
+}
+#calendar .fc-state-hover, #calendar .fc-state-down, #calendar .fc-state-active, #calendar .fc-state-disabled {
+    background-color: #586f8d;
+    color: #FFFFFF;
+}
+#calendar .fc-state-hover{
+	background-position: 0 -100%;
+	background-color: #586f8d;
+	transition: none;
+}
+/*#calendar .fc-today-button {
+	color: #FFFFFF;
+	background-color: #586f8d;
+}*/
+#calendar .fc-center {
+	color: #FFFFFF;
+}
+/**********popup colour***************/
+/*.mail-popup {
+	border: 1px #FF9999 solid;
+}
+.guest-popup {
+	border: 1px #9999FF solid;
+}*/
+.corporation-popup {
+	border: 1px #FFCC99 solid;
+}
+.facility-popup {
+	border: 1px #FFFF99 solid;
+}
+.fee-popup {
+	border: 1px #CCFF99 solid;
+}
+.fix-popup {
+	border: 1px #99FF99 solid;
+}
+.setting-popup {
+	border: 1px #99FFCC solid;
+}
+#fullCalModal .modal-content {
+	height: auto;
+}

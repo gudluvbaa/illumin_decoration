@@ -1,0 +1,101 @@
+.mail-list-wrap {
+	height: 645px;
+	overflow: auto;
+}
+table.mail-list {
+	border: 1px #5e5e5e solid;
+	margin-top: 20px;
+	font-size: 21px;
+}
+table.mail-record-list {
+	margin-top: 20px;
+}
+.mail-list tbody {
+	width: 100%;
+}
+.mail-list thead {
+	width: 100%;
+}
+#mailList > .col-lg-12 > input {
+	width: 100%;
+	margin-top: 10px;
+}
+#mailRecordList.col-lg-12 input, #mailRecordList.col-lg-12 select {
+	margin-top: 10px;
+}
+
+.mail-record-list-wrap {
+	margin-top: 10px;
+	height: 680px;
+	overflow: auto;
+}
+input.receiverInput  {
+	width: 50%;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+div.receiver-input-section {
+	margin-top: 20px;
+}
+.receiver-input-wrap input {
+	color: #555555;
+}
+#searchUserMailResult .mail-collect-content .mail-list-table {
+	height: 300px;
+	overflow: auto
+}
+.mail-return-list-table{
+	margin-top: 10px;
+	height: 280px;
+	overflow: auto
+}
+#signature, #returnsignature {
+	border: 1px dotted #ddd;
+}
+.mail-list-search {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+/***************from type icon******************/
+.sender-type-locker {
+	background-image: url('../img/passtoi.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-post {
+	background-image: url('../img/post.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-passtoi {
+	background-image: url('../img/passtoi.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-passtoo {
+	background-image: url('../img/passtoo.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-parcel {
+	background-image: url('../img/parcel.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-certified {
+	background-image: url('../img/certified.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.sender-type-other {
+	background-image: url('../img/other.png');
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
