@@ -1,7 +1,8 @@
+var originname = "http://218.161.115.218:8080/HouseManager";
+
 $(function() {
 	var userurl = "http://testurl.com?g=ZjIwNmQ2MjAtZGFmZi00YWFmLTg4NTktNDhiNjY4ZDhiOTNh";
 	var userEncode = userurl.split("?g=");
-	console.log(userEncode[1]);
 	var encodeVal = userEncode[1];
 	console.log("encode: " + encodeVal);
 	decode64(encodeVal);
@@ -41,7 +42,6 @@ function decode64(input) {
         enc1 = enc2 = enc3 = enc4 = "";
      } while (i < input.length);
      userToken = unescape(output);
-     console.log(unescape(output)) ;
      console.log("userToken: " + userToken) ;
      getUser(userToken);
   }
@@ -50,17 +50,17 @@ function getUser(userToken) {
 	$.ajaxSetup({
 		beforeSend: function (request){
 	        request.setRequestHeader("Authorization",  "bearer " + userToken);
-	        request.setRequestHeader("token", userToken);
 	    },
 	    success: function(Jdata) {
 	    	alert(Jdata.id);
 	    }
 	});
 	$.ajax({
-            url: "http://218.161.115.218:8080/HouseManager/decoration/user",
+            url: originname + "/decoration/user",
             type: 'GET',
             success: function(data)
             {
+				console.log(data);
 				console.log("success!!!!!!");
             },
             error: function(error)
