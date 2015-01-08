@@ -2,102 +2,96 @@ var originname = "http://218.161.115.218:8080/HouseManager";
 var imagepath = "http://218.161.115.218:80";
 
 $(function() {
-	//var userurl = window.location.href;
-	var userurl = 'http://218.161.115.218/illuminDecoration?g=ZGViYTdjMTQtZmVmMy00MTY5LWJlMzQtNjA2OTNmYjI3ZDBk';
-	var userEncode = userurl.split("?g=");
-	var encodeVal = userEncode[1];
-	console.log("encode: " + encodeVal);
-	decode64(encodeVal);
-	
-	
+	//var adminurl = window.location.href;
+	var adminurl = 'http://218.161.115.218/illuminDecoration/admin.html?decoid=515';
+	var adminsplit = adminurl.split("?decoid=");
+	var decoID = adminsplit[1];
+	console.log("encode: " + decoID);
+	getAppliedDeco(decoID)
+});
+
+var appliedTitle;
+var appliedContent;
+var appliedDesignerName;
+var appliedDesignerPhone;
+var appliedDesignerMail;
+var appliedOverSeerName;
+var appliedOverSeerPhone;
+var appliedOverSeerMail;
+var appliedstartFormat;
+var appliedendFormat;
+var appliedHeavyNoise;
+var appliedCash;
+
+
+
+function getAppliedDeco(decoID) {
+	$("#admindecoAppliedDesignerName").html("");
+	$("#admindecoAppliedDesignerMail").html("");
+	$("#admindecoAppliedDesignerPhone").html("");
+	$("#admindecoAppliedOverSeerName").html("");
+	$("#admindecoAppliedOverSeerPhone").html("");
+	$("#admindecoAppliedOverSeerMail").html("");
+	$(".deco-cash-section-cash").html("");
 	$.ajax({
-        url: originname + "/files/building/1",
+        url: originname + "/decoration/" + decoID,
         type: 'GET',
         success: function(data)
         {
-        	for(var i = 0 ; i < data.length ; i++){
-				console.log(data);
-				$(".applied-deco-section").append("<div class='deco-apply-file-list col-md-12'><div class='document-title col-md-6'>"+ data[i].fileName +"</div>" +
-				"<div class='document-download col-md-1'><a href='" + imagepath + data[i].url +"' download><img src='./img/download.png' alt='download' height='50'></a></div>"+
-				"<div class='document-upload col-md-1'><input type='file' name='file_upload' id='file_upload'></input></div>" +
-				"<div class='document-pdf col-md-1'><input type='image' src='img/pdf1.png' onclick='fileupload()' style='height:40px;'></input><div></div>");
-        	};
+			console.log(data);
+			console.log("success!!!!!!");
+			$("#admindecoAppliedId").append(data.id);
+			$("#admindecoAppliedName").html(data.houseFloor + " - " + data.houseNumber);
+			$("#admindecoAppliedDesignerName").html(data.designer);
+			$("#admindecoAppliedDesignerMail").html(data.designerPhone);
+			$("#admindecoAppliedDesignerPhone").html(data.designerMail);
+			$("#admindecoAppliedOverSeerName").html(data.overseer);
+			$("#admindecoAppliedOverSeerPhone").html(data.overseerPhone);
+			$("#admindecoAppliedOverSeerMail").html(data.overseerMail);
+			$(".deco-cash-section-cash").html("<input id='decoCash" + decoID + "' class='form-control' type='number'> </input>");
+			$(".deco-cash-section-btn").html("<button class='btn btn-default' onclick='addeposit(" + decoID + ")'>儲存</button>");
+			
+			
+			getTempfileAdmin(decoID);
+			//getUserUploadfile(decoID);
+			
+			appliedTitle = data.title;
+			appliedContent = data.content;
+			appliedDesignerName = data.designer;
+			appliedDesignerPhone = data.designerPhone;
+			appliedDesignerMail = data.designerMail;
+			appliedOverSeerName = data.overseer;
+			appliedOverSeerPhone = data.overseerPhone;
+			appliedOverSeerMail = data.overseerMail;
+			appliedstartFormat = data.startFormat;
+			appliedendFormat = data.endFormat;
+			appliedHeavyNoise = data.heavyNoise;
+			appliedCash = data.cash;
+
         },
         error: function(error)
         {
 			console.log("error!!!!!!");
         }
    });
-});
-var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" + "=";
-
-var userToken;
-function decode64(input) {
-     var output = "";
-     var chr1, chr2, chr3 = "";
-     var enc1, enc2, enc3, enc4 = "";
-     var i = 0;
-     // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-     var base64test = /[^A-Za-z0-9\+\/\=]/g;
-     if (base64test.exec(input)) {
-        alert("There were invalid base64 characters in the input text.\n" +
-              "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-              "Expect errors in decoding.");
-     }
-     input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-     do {
-        enc1 = keyStr.indexOf(input.charAt(i++));
-        enc2 = keyStr.indexOf(input.charAt(i++));
-        enc3 = keyStr.indexOf(input.charAt(i++));
-        enc4 = keyStr.indexOf(input.charAt(i++));
-        chr1 = (enc1 << 2) | (enc2 >> 4);
-        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-        chr3 = ((enc3 & 3) << 6) | enc4;
-        output = output + String.fromCharCode(chr1);
-        if (enc3 != 64) {
-           output = output + String.fromCharCode(chr2);
-        }
-        if (enc4 != 64) {
-           output = output + String.fromCharCode(chr3);
-        }
-        chr1 = chr2 = chr3 = "";
-        enc1 = enc2 = enc3 = enc4 = "";
-     } while (i < input.length);
-     userToken = unescape(output);
-     console.log("userToken: " + userToken) ;
-     getUser(userToken);
-  }
-  
-function getUser(userToken) {
-	$("#decoAppliedDesignerName").html("");
-	$("#decoAppliedDesignerMail").html("");
-	$("#decoAppliedDesignerPhone").html("");
-	$("#decoAppliedOverSeerName").html("");
-	$("#decoAppliedOverSeerPhone").html("");
-	$("#decoAppliedOverSeerMail").html("");
-	$.ajaxSetup({
-		beforeSend: function (request){
-	        request.setRequestHeader("Authorization",  "bearer " + userToken);
-	    },
-	    success: function(Jdata) {
-	    	alert(Jdata.id);
-	    }
-	});
+}
+function getTempfileAdmin(decoID){
+	var tempfilearray = [];
 	$.ajax({
-        url: originname + "/decoration/user",
+        url: originname + "/files/building/1",
         type: 'GET',
         success: function(data)
         {
-			console.log(data);
-			console.log("success!!!!!!");
-			$("#decoAppliedId").append(data.id);
-			$("#decoAppliedName").html(data.houseFloor + " - " + data.houseNumber);
-			$("#decoAppliedDesignerName").html(data.designer);
-			$("#decoAppliedDesignerMail").html(data.designerPhone);
-			$("#decoAppliedDesignerPhone").html(data.designerMail);
-			$("#decoAppliedOverSeerName").html(data.overseer);
-			$("#decoAppliedOverSeerPhone").html(data.overseerPhone);
-			$("#decoAppliedOverSeerMail").html(data.overseerMail);
+        	for(var i = 0 ; i < data.length ; i++){
+				$(".applied-deco-section").append("<div class='deco-apply-file-list col-md-12'><div class='document-title col-md-5'><h4>"+ data[i].fileName +"</h4></div>" +
+				"<div class='document-fileName col-md-2' display='block'><input class='form-control' type='text' id='filename" + data[i].id + "' value='" + data[i].fileName + "'></input></div>" +
+				"<div class='document-pdf-" + data[i].id + " col-md-1'><img src='img/pdf1.png' height='40'/></div>" + 
+				"<div class='document-accept-" + data[i].id + " col-md-1'><input type='image' src='img/accept.png' height='40'></input></div></div>");
+        		
+				tempfilearray.push(data[i]);
+				console.log(tempfilearray);
+        	};
+			getUploadedfileAdmin(decoID,tempfilearray);
         },
         error: function(error)
         {
@@ -106,6 +100,92 @@ function getUser(userToken) {
    });
 }
 
-function fileupload() {
-	alert("file upload");
+function getUploadedfileAdmin(decoID, tempfilearray) {
+	console.log("id: " + tempfilearray[0].id);
+	$.ajax({
+        url: originname + "/files/decoration/" + decoID,
+        type: 'GET',
+        success: function(data)
+        {
+        	for(var i = 0 ; i < data.length ; i++){
+        		console.log("file name: " + data[i].fileName);
+        		var uploadfilename = data[i].fileName;
+        		for (var j = 0 ; j < tempfilearray.length ; j++){
+        			if (uploadfilename === tempfilearray[j].fileName) {
+        				//console.log("upload file: " + data[i].fileName + "temp: " + tempfilearray[j].fileName);
+        				//$(".document-submit-" + tempfilearray[j].id).html("<button class='btn btn-primary' onclick='filereupload(" + decoID +"," + data[i].id + "," + tempfilearray[j].id +")'>上傳</button>");
+        				$(".document-pdf-" + tempfilearray[j].id).html("<a href='" + imagepath + data[i].url +"' download><img src='./img/pdf2.png' alt='download' height='40'></a>");
+        				
+        				if (data[i].accepted == true ) {
+        					$(".document-accept-" + tempfilearray[j].id).html("<input type='image' src='img/accepted.png' height='40' onclick='modifyFileAccept(" + data[i].id + ")'></input>");
+        				} else {
+        					$(".document-accept-" + tempfilearray[j].id).html("<input type='image' src='img/accept.png' height='40' onclick='modifyFileAccept(" + data[i].id + ")'></input>");
+        				}
+        			}
+        		};        	
+        	};
+        },
+        error: function(error)
+        {
+			console.log("error!!!!!!");
+        }
+   });
+}
+
+function modifyFileAccept(fileid) {
+	console.log("file id : " + fileid);
+	$.ajax({
+        url: originname + "/file/" + fileid + "/accept",
+        type: 'PUT',
+        success: function(data)
+        {
+        	alert("資料已通過");
+            location.reload();
+        },
+        error: function(error)
+        {
+			console.log("error!!!!!!");
+        }
+   });
+}
+function addeposit(decoid) {
+	console.log("id:::::::: " + decoid);
+	appliedCash = $('#decoCash'+ decoid).val();
+	
+	var dfd = new FormData();    
+		dfd.append( 'title', appliedTitle );
+		dfd.append( 'content', appliedContent );
+		dfd.append( 'designer', appliedDesignerName );
+		dfd.append( 'designerPhone', appliedDesignerPhone );
+		dfd.append( 'designerMail', appliedDesignerMail );
+		dfd.append( 'overseer', appliedOverSeerName );
+		dfd.append( 'overseerPhone', appliedOverSeerPhone );
+		dfd.append( 'overseerMail', appliedOverSeerMail );
+		dfd.append( 'startFormat', appliedstartFormat );
+		dfd.append( 'endFormat', appliedendFormat );
+		dfd.append( 'heavyNoise', appliedHeavyNoise );
+		dfd.append( 'cash', appliedCash );
+		
+	console.log(appliedCash);	
+	console.log(appliedendFormat);
+	
+	/*$.ajax({
+         type:'POST',
+         url: originname+"decoration/{decorationid}" + decoID,
+         data:dfd,
+         cache:false,
+         contentType: false,
+         processData: false,
+         success:function(data){
+             console.log("update a file success");
+             console.log(data);
+             alert(filename+"已上傳.");
+             location.reload();
+         },
+         error: function(data){
+             console.log("update a file failed");
+             console.log(data);
+         }
+    });*/
+	
 }

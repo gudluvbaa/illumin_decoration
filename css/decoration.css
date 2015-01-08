@@ -46,6 +46,9 @@ header.menu .decoration-menu ul li{
 	margin-left: 0;
 	margin-right: 0;
 }
+.document-fileName {
+	display: none;
+}
 .document-upload {
 	background-image: url('../img/upload.png');
 	background-repeat:  no-repeat;
